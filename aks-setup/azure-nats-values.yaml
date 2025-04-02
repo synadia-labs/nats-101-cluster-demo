@@ -15,23 +15,32 @@ config:
   gateway:
     enabled: true
     merge:
-      advertise: "52.226.157.34:7222"
+      # advertise: "52.226.157.34:7222"
       authorization:
         user: natsgate
         password: NATSC!u5t3rG@73w@y
-      gateways: 
-      - name: "nats-eks"
-        urls:
-          - nats://natsgate:NATSC!u5t3rG@73w@y@k8s-default-natseks-3ae635d14a-eeb0c6bb1b4e38ff.elb.us-east-1.amazonaws.com:7222
-      - name: "nats-azure"
-        urls:
-          - nats://natsgate:NATSC!u5t3rG@73w@y@52.226.157.34:7222
+      gateways: []
+      # - name: "nats-eks"
+      #   urls:
+      #     - nats://natsgate:NATSC!u5t3rG@73w@y@k8s-default-natseks-3ae635d14a-eeb0c6bb1b4e38ff.elb.us-east-1.amazonaws.com:7222
+      # - name: "nats-azure"
+      #   urls:
+      #     - nats://natsgate:NATSC!u5t3rG@73w@y@52.226.157.34:7222
   merge:
     accounts:
       SYS:
         users:
           - user: sys
             pass: sysuser
+      global:
+        jetstream: enabled
+        users:
+          - user: natsedge
+            pass: NATSeDg3Us3r!
+          - user: natseast
+            pass: NATSC!u5t3r3@st
+          - user: natswest
+            pass: NATSC!u5t3rW3st
     system_account: SYS
 
 podTemplate:
