@@ -1,0 +1,67 @@
+config:
+  cluster:
+    enabled: true
+    replicas: 3
+  jetstream:
+    enabled: true
+    fileStore:
+      pvc:
+        size: 10Gi
+  leafnodes:
+    enabled: true
+    authorization:
+      user: natsleaf
+      password: NATSC!u5t3rL3afn0d3
+  gateway:
+    enabled: true
+    merge:
+      advertise: "52.226.157.34:7222"
+      authorization:
+        user: natsgate
+        password: NATSC!u5t3rG@73w@y
+      gateways: 
+      - name: "nats-eks"
+        urls:
+          - nats://natsgate:NATSC!u5t3rG@73w@y@k8s-default-natseks-3ae635d14a-eeb0c6bb1b4e38ff.elb.us-east-1.amazonaws.com:7222
+      - name: "nats-azure"
+        urls:
+          - nats://natsgate:NATSC!u5t3rG@73w@y@52.226.157.34:7222
+  merge:
+    accounts:
+      SYS:
+        users:
+          - user: sys
+            pass: sysuser
+    system_account: SYS
+
+podTemplate:
+  topologySpreadConstraints:
+    kubernetes.io/hostname:
+      maxSkew: 1
+      whenUnsatisfiable: DoNotSchedule
+
+service:
+  ports:
+    gateway:
+      enabled: true
+  merge:
+    metadata:
+      annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: "false"
+    spec:
+      type: LoadBalancer
+      publishNotReadyAddresses: true
+      ports:
+        - name: nats
+          port: 4222
+          targetPort: 4222
+        - name: gateway
+          port: 7222
+          targetPort: 7222
+        - name: monitor
+          port: 8222
+          targetPort: 8222
+        - name: leafnodes
+          port: 7422
+          targetPort: 7422
+

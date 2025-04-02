@@ -1,0 +1,8 @@
+.DS_Store
+.idea/
+**/*terraform
+**/*.tfstate
+**/*terraform.*
+**/*plan
+**/*.tfstate.*
+notes.txt

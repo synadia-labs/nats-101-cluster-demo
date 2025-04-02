@@ -1,0 +1,16 @@
+{
+  "$schema": "http://nats.io/adder/schema#",
+  "type": "object",
+  "properties": {
+    "first": {
+      "type": "number",
+      "description": "The first number"
+    },
+    "second": {
+      "type": "number",
+      "description": "The second number"
+    }
+  },
+  "required": ["first", "second"],
+  "additionalProperties": false
+}
