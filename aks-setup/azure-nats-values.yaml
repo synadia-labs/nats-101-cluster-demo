@@ -67,10 +67,5 @@ service:
         - name: gateway
           port: 7222
           targetPort: 7222
-        - name: monitor
-          port: 8222
-          targetPort: 8222
-        - name: leafnodes
-          port: 7422
-          targetPort: 7422
+
 
