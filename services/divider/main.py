@@ -22,6 +22,9 @@ async def main():
     server_urls = os.environ.get("NATS_SERVERS").split(",")
     if not server_urls:
         raise ValueError("NATS_SERVERS environment variable is not set or empty.")
+    else:
+        server_urls = [url.strip() for url in server_urls]
+        print(f"Using NATS servers: {server_urls}")
     nats_user = os.environ.get("NATS_USER")
     nats_password = os.environ.get("NATS_PASSWORD")
     if not nats_user or not nats_password:

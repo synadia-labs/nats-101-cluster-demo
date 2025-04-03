@@ -17,6 +17,7 @@ spec:
       containers:
         - name: subtractor
           image: ghcr.io/colinjlacy/colinjlacy/nats-cluster-demo-subtractor:latest
+          imagePullPolicy: Always
           env:
             - name: NATS_USER
               valueFrom:
