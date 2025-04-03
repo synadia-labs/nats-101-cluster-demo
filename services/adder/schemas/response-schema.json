@@ -10,7 +10,7 @@
       "type": "number",
       "description": "The second number"
     },
-    "sum": {
+    "result": {
       "type": "number",
       "description": "The sum of number1 and number2"
     }

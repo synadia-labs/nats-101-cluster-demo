@@ -18,7 +18,7 @@ spec:
         - name: divider
           image: ghcr.io/colinjlacy/colinjlacy/nats-cluster-demo-divider:latest
           env:
-            - name: NATS_USERNAME
+            - name: NATS_USER
               valueFrom:
                 secretKeyRef:
                   name: nats-credentials
@@ -28,7 +28,7 @@ spec:
                 secretKeyRef:
                   name: nats-credentials
                   key: password
-            - name: NATS_URLS
+            - name: NATS_SERVERS
               valueFrom:
                 configMapKeyRef:
                   name: service-config
