@@ -41,4 +41,4 @@ kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=aws-load-balanc
 # install NATS
 echo "Installing NATS"
 
-helm upgrade --install nats-eks nats/nats -f eks-nats-values.yaml
+helm upgrade --install nats nats/nats -f eks-nats-values.yaml

@@ -38,21 +38,21 @@ async def main():
     # Connect to NATS server
     nc = await nats.connect(servers=server_urls, user=nats_user, password=nats_password)
 
-    # Create the MultiplierService
-    svc = await nats.micro.add_service(nc, name="MultiplierService", version="1.0.0")
+    # Create the SubtractorService
+    svc = await nats.micro.add_service(nc, name="SubtractorService", version="1.0.0")
     adder = SubtractorService()
     group = svc.add_group(name="math")
     await group.add_endpoint(name="multiply", handler=adder.operate, subject="numbers.multiply", metadata={"description": "Multiply two numbers", "endpoint_schema": endpoint_schema, "response_schema": response_schema})
 
     # Start the service
     await svc.start()
-    print("MultiplierService is running...")
+    print("SubtractorService is running...")
 
     try:
         while True:
             await asyncio.sleep(1)
     except KeyboardInterrupt:
-        print("Shutting down MultiplierService...")
+        print("Shutting down SubtractorService...")
         await svc.stop()
         await nc.close()
 
