@@ -5,4 +5,4 @@ metadata:
   labels:
     app: service
 data:
-  nats-urls: "nats://nats-0:4222,nats://nats-1:4222,nats://nats-2:4222"
+  nats-urls: "nats://nats-kind-0.nats-kind-headless:4222,nats://nats://nats-kind-1.nats-kind-headless:4222,nats://nats://nats-kind-2.nats-kind-headless:4222"
