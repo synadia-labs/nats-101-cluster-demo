@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subtractor-deployment
+  labels:
+    app: subtractor
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: subtractor
+  template:
+    metadata:
+      labels:
+        app: subtractor
+    spec:
+      containers:
+        - name: subtractor
+          image: ghcr.io/colinjlacy/colinjlacy/nats-cluster-demo-subtractor:latest
+          env:
+            - name: NATS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: nats-credentials
+                  key: username
+            - name: NATS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nats-credentials
+                  key: password
+            - name: NATS_URLS
+              valueFrom:
+                configMapKeyRef:
+                  name: service-config
+                  key: nats-urls
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "250m"

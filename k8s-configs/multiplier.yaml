@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multiplier-deployment
+  labels:
+    app: multiplier
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: multiplier
+  template:
+    metadata:
+      labels:
+        app: multiplier
+    spec:
+      containers:
+        - name: multiplier
+          image: ghcr.io/colinjlacy/colinjlacy/nats-cluster-demo-multiplier:latest
+          env:
+            - name: NATS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: nats-credentials
+                  key: username
+            - name: NATS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nats-credentials
+                  key: password
+            - name: NATS_URLS
+              valueFrom:
+                configMapKeyRef:
+                  name: service-config
+                  key: nats-urls
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "250m"

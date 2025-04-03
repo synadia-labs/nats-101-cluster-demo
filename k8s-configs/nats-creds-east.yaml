@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nats-east
+  labels:
+    app: nats
+type: Opaque
+data:
+  username: bmF0c2Vhc3Q=  # Base64 encoded value of "natseast"
+  password: TkFUU0MhczV0M3IzQHN0  # Base64 encoded value of "NATSC!u5t3r3@st"

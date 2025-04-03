@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nats-west
+  labels:
+    app: nats
+type: Opaque
+data:
+  username: bmF0c3dlc3Q=  # Base64 encoded value of "natswest"
+  password: TkFUU0MhczV0M3JXM3N0  # Base64 encoded value of "NATSC!u5t3rW3st"
