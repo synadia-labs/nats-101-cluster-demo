@@ -1,4 +1,5 @@
 import os
+import json
 import asyncio
 import random
 from nats.aio.client import Client as NATS
@@ -28,12 +29,12 @@ async def main():
         # Generate two random numbers between 1 and 100
         num1 = random.randint(1, 100)
         num2 = random.randint(1, 100)
-        payload = {"number1": num1, "number2": num2}
+        payload = {"first": num1, "second": num2}
 
         for topic in topics:
             try:
                 # Send a request and wait for a response
-                response = await nc.request(topic, str(payload).encode(), timeout=2)
+                response = await nc.request(topic, json.dumps(payload), timeout=2)
                 print(f"Request to {topic} with payload {payload} received response: {response.data.decode()}")
             except Exception as e:
                 print(f"Error sending request to {topic}: {e}")
