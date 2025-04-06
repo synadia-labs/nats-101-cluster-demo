@@ -4,17 +4,17 @@
   "properties": {
     "first": {
       "type": "number",
-      "description": "The first number"
+      "description": "The multiplicand"
     },
     "second": {
       "type": "number",
-      "description": "The second number"
+      "description": "The multiplier"
     },
     "result": {
       "type": "number",
-      "description": "The product of number1 and number2"
+      "description": "The product of the two factors"
     }
   },
-  "required": ["first", "second"],
+  "required": ["first", "second", "result"],
   "additionalProperties": false
 }

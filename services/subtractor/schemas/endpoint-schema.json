@@ -4,11 +4,11 @@
   "properties": {
     "first": {
       "type": "number",
-      "description": "The first number"
+      "description": "The minuend"
     },
     "second": {
       "type": "number",
-      "description": "The second number"
+      "description": "The subtrahend"
     }
   },
   "required": ["first", "second"],

@@ -45,7 +45,7 @@ async def main():
     svc = await nats.micro.add_service(nc, name="SubtractorService", version="1.0.0")
     adder = SubtractorService()
     group = svc.add_group(name="math")
-    await group.add_endpoint(name="multiply", handler=adder.operate, subject="numbers.multiply", metadata={"description": "Multiply two numbers", "endpoint_schema": endpoint_schema, "response_schema": response_schema})
+    await group.add_endpoint(name="subtract", handler=adder.operate, subject="numbers.subtract", metadata={"description": "Subtract the second number from the first", "endpoint_schema": endpoint_schema, "response_schema": response_schema})
 
     # Start the service
     await svc.start()

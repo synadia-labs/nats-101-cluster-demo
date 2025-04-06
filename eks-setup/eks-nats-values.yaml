@@ -29,7 +29,7 @@ config:
         users:
           - user: sys
             pass: sysuser
-      global:
+      teamA:
         jetstream: enabled
         users:
           - user: natsedge
@@ -38,6 +38,11 @@ config:
             pass: NATSC!u5t3r3@st
           - user: natswest
             pass: NATSC!u5t3rW3st
+      teamB:
+        jetstream: enabled
+        users:
+          - user: natsAdd
+            pass: NATSAdd!d3r
     system_account: SYS
 
 podTemplate:

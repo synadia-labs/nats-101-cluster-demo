@@ -4,17 +4,17 @@
   "properties": {
     "first": {
       "type": "number",
-      "description": "The first number"
+      "description": "The minuend"
     },
     "second": {
       "type": "number",
-      "description": "The second number"
+      "description": "The subtrahend"
     },
     "result": {
       "type": "number",
-      "description": "The difference between number1 and number2"
+      "description": "The difference"
     }
   },
-  "required": ["first", "second"],
+  "required": ["first", "second", "result"],
   "additionalProperties": false
 }

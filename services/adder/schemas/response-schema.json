@@ -4,17 +4,17 @@
   "properties": {
     "first": {
       "type": "number",
-      "description": "The first number"
+      "description": "The first addend"
     },
     "second": {
       "type": "number",
-      "description": "The second number"
+      "description": "The second addend"
     },
     "result": {
       "type": "number",
-      "description": "The sum of number1 and number2"
+      "description": "The sum of the two addends"
     }
   },
-  "required": ["first", "second"],
+  "required": ["first", "second", "result"],
   "additionalProperties": false
 }

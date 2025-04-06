@@ -4,17 +4,17 @@
   "properties": {
     "first": {
       "type": "number",
-      "description": "The first number"
+      "description": "The numerator"
     },
     "second": {
       "type": "number",
-      "description": "The second number"
+      "description": "The denominator"
     },
     "result": {
       "type": "number",
-      "description": "The quotient of number1 and number2"
+      "description": "The quotient"
     }
   },
-  "required": ["first", "second"],
+  "required": ["first", "second", "result"],
   "additionalProperties": false
 }

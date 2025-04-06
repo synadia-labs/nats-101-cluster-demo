@@ -4,11 +4,11 @@
   "properties": {
     "first": {
       "type": "number",
-      "description": "The first number"
+      "description": "The first addend"
     },
     "second": {
       "type": "number",
-      "description": "The second number"
+      "description": "The second addend"
     }
   },
   "required": ["first", "second"],
