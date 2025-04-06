@@ -1,4 +1,5 @@
 config:
+  client_advertise: "nats://nats.default.svc.cluster.local:4222"
   cluster:
     enabled: true
     replicas: 3
@@ -12,17 +13,18 @@ config:
   gateway:
     enabled: true
     merge:
-      # advertise: "k8s-default-natseks-1fbb70eb26-85458df31024e600.elb.us-east-1.amazonaws.com"
+      name: "nats-eks"
+      advertise: "k8s-default-natseks-1e51447358-beb8437f6bba706c.elb.us-east-1.amazonaws.com"
       authorization:
         user: natsgate
-        password: NATSC!u5t3rG@73w@y
-      gateways: []
-      # - name: "nats-eks"
-      #   urls:
-      #     - nats://natsgate:NATSC!u5t3rG@73w@y@k8s-default-natseks-1fbb70eb26-85458df31024e600.elb.us-east-1.amazonaws.com:7222
-      # - name: "nats-azure"
-      #   urls:
-      #     - nats://natsgate:NATSC!u5t3rG@73w@y@13.91.37.138:7222
+        password: NATSC!u5t3rGa73way
+      gateways: 
+      - name: "nats-eks"
+        urls:
+          - nats://natsgate:NATSC!u5t3rGa73way@k8s-default-natseks-1e51447358-beb8437f6bba706c.elb.us-east-1.amazonaws.com:7222
+      - name: "nats-azure"
+        urls:
+          - nats://natsgate:NATSC!u5t3rGa73way@13.88.174.4:7222
   merge:
     accounts:
       SYS:

@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: service-config
-  labels:
-    app: service
-data:
-  nats-urls: "nats://nats.default.svc.cluster.local:4222"
