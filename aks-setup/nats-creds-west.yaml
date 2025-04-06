@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nats-credentials
+  labels:
+    app: nats
+type: Opaque
+data:
+  username: c3lz  # Base64 encoded value of "natseast"
+  password: c3lzdXNlcg==  # Base64 encoded value of "NATSC!u5t3r3@st"
+  region: V2VzdA== # Base64 encoded value of "West"

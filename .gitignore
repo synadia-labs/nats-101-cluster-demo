@@ -5,4 +5,5 @@
 **/*terraform.*
 **/*plan
 **/*.tfstate.*
+**/*/nats-admin.config
 notes.txt
