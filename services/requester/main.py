@@ -34,7 +34,7 @@ async def main():
         for topic in topics:
             try:
                 # Send a request and wait for a response
-                response = await nc.request(topic, json.dumps(payload), timeout=2)
+                response = await nc.request(topic, json.dumps(payload).encode('utf-8'), timeout=2)
                 print(f"Request to {topic} with payload {payload} received response: {response.data.decode()}")
             except Exception as e:
                 print(f"Error sending request to {topic}: {e}")
