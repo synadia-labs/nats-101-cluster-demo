@@ -19,6 +19,7 @@ class AdderService():
 
 async def main():
     
+    region = os.environ.get("REGION")
     server_urls = os.environ.get("NATS_SERVERS").split(",")
     if not server_urls:
         raise ValueError("NATS_SERVERS environment variable is not set or empty.")
@@ -42,10 +43,10 @@ async def main():
     nc = await nats.connect(servers=server_urls, user=nats_user, password=nats_password)
 
     # Create the AdderService
-    svc = await nats.micro.add_service(nc, name="AdderService", version="1.0.0")
+    svc = await nats.micro.add_service(nc, name=f"AdderService_{region}", version="1.0.0", description="Add two numbers")
     adder = AdderService()
     group = svc.add_group(name="math")
-    await group.add_endpoint(name="add", handler=adder.operate, subject="numbers.add", metadata={"description": "Add two numbers", "schema": endpoint_schema, "response_schema": response_schema})
+    await group.add_endpoint(name="add", handler=adder.operate, subject="numbers.add", metadata={"schema": endpoint_schema, "response_schema": response_schema})
 
     # Start the service
     await svc.start()

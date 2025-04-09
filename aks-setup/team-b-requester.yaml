@@ -1,14 +1,14 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: requester-job
+  name: team-b-requester
   labels:
     app: requester
 spec:
   template:
     metadata:
       labels:
-        app: requester
+        app: team-b-requester
     spec:
       containers:
         - name: requester
@@ -17,18 +17,18 @@ spec:
           env:
             - name: NATS_SERVERS
               valueFrom:
-                configMapKeyRef:
-                  name: service-config
-                  key: nats-urls
+                secretKeyRef:
+                  name: team-b-credentials
+                  key: nats-servers
             - name: NATS_USER
               valueFrom:
                 secretKeyRef:
-                  name: nats-credentials
+                  name: team-b-credentials
                   key: username
             - name: NATS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: nats-credentials
+                  name: team-b-credentials
                   key: password
             - name: LOOP_COUNT
               value: "10"

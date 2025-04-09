@@ -19,6 +19,7 @@ class MultiplierService():
 
 async def main():
     
+    region = os.environ.get("REGION")
     server_urls = os.environ.get("NATS_SERVERS").split(",")
     if not server_urls:
         raise ValueError("NATS_SERVERS environment variable is not set or empty.")
@@ -42,10 +43,10 @@ async def main():
     nc = await nats.connect(servers=server_urls, user=nats_user, password=nats_password)
 
     # Create the MultiplierService
-    svc = await nats.micro.add_service(nc, name="MultiplierService", version="1.0.0")
+    svc = await nats.micro.add_service(nc, name=f"MultiplierService_{region}", version="1.0.0", description="Multiply two numbers")
     adder = MultiplierService()
     group = svc.add_group(name="math")
-    await group.add_endpoint(name="multiply", handler=adder.operate, subject="numbers.multiply", metadata={"description": "Multiply two numbers", "endpoint_schema": endpoint_schema, "response_schema": response_schema})
+    await group.add_endpoint(name="multiply", handler=adder.operate, subject="numbers.multiply", metadata={"endpoint_schema": endpoint_schema, "response_schema": response_schema})
 
     # Start the service
     await svc.start()

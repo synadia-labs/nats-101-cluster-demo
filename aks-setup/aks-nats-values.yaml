@@ -1,5 +1,5 @@
 config:
-  client_advertise: "nats://nats.default.svc.cluster.local:4222"
+  client_advertise: "nats://nats-west.default.svc.cluster.local:4222"
   cluster:
     enabled: true
     replicas: 3
@@ -14,20 +14,26 @@ config:
       user: natsleaf
       password: NATSC!u5t3rL3afn0d3
   gateway:
-    name: "nats-azure"
+    # NOTE: the gateway name must match the Helm release name
+    name: "nats-west"
     enabled: true
     merge:
-      advertise: "13.88.174.4:7222"
+      advertise: "57.154.178.93:7222"
       authorization:
         user: natsgate
         password: NATSC!u5t3rGa73way
+      # for this demo, I used the cloud provider's load balancer servicer.
+      # that means I had to wait for the load balancer to be created before I knew
+      # what the external IP address was. until then, the following two lines were
+      # commented out. once the load balancer was created, I uncommented them
+      # and updated the values entries with the correct endpoints.
       gateways: 
-      - name: "nats-eks"
+      - name: "nats-east"
         urls:
-          - nats://natsgate:NATSC!u5t3rGa73way@k8s-default-natseks-1e51447358-beb8437f6bba706c.elb.us-east-1.amazonaws.com:7222
-      - name: "nats-azure"
+          - nats://natsgate:NATSC!u5t3rGa73way@k8s-default-natseast-7a73a92769-7e2f030540a4d622.elb.us-east-1.amazonaws.com:7222
+      - name: "nats-west"
         urls:
-          - nats://natsgate:NATSC!u5t3rGa73way@13.88.174.4:7222
+          - nats://natsgate:NATSC!u5t3rGa73way@57.154.178.93:7222
   merge:
     accounts:
       SYS:
@@ -35,19 +41,24 @@ config:
           - user: sys
             pass: sysuser
       teamA:
+        default_permissions:
+          publish:
+            allow: "math.numbers.>"
+          subscribe:
+            allow: 
+            - "math.numbers.>"
+            - "_INBOX.>" # necessary for responses
+          allow_responses: true
         jetstream: enabled
         users:
-          - user: natsedge
-            pass: NATSeDg3Us3r!
           - user: natseast
             pass: NATSC!u5t3r3@st
           - user: natswest
             pass: NATSC!u5t3rW3st
       teamB:
-        jetstream: enabled
         users:
-          - user: natsAdd
-            pass: NATSAdd!d3r
+          - user: natsUserB
+            pass: NATS_U$3R_b33
     system_account: SYS
 
 podTemplate:

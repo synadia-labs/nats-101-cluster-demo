@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: team-b-credentials
+  labels:
+    app: nats
+type: Opaque
+data:
+  username: bmF0c1VzZXJC  # Base64 encoded value of "natsUserB"
+  password: TkFUU19VJDNSX2IzMw==  # Base64 encoded value of "NATS_U$3R_b33"
+  region: V2VzdA== # Base64 encoded value of "West"
+  nats-servers: bmF0czovL25hdHMtd2VzdC5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsOjQyMjI= # Base64 encoded value of "nats://nats-west.default.svc.cluster.local:4222"

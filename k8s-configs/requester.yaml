@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: requester
+  labels:
+    app: requester
+spec:
+  template:
+    metadata:
+      labels:
+        app: requester
+    spec:
+      containers:
+        - name: requester
+          image: ghcr.io/colinjlacy/colinjlacy/nats-cluster-demo-requester:latest
+          imagePullPolicy: Always
+          env:
+            - name: NATS_SERVERS
+              valueFrom:
+                secretKeyRef:
+                  name: nats-credentials
+                  key: nats-servers
+            - name: NATS_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nats-credentials
+                  key: username
+            - name: NATS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nats-credentials
+                  key: password
+            - name: LOOP_COUNT
+              value: "10"
+      restartPolicy: Never
+  backoffLimit: 4

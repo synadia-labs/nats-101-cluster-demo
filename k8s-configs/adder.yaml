@@ -31,13 +31,18 @@ spec:
                   key: password
             - name: NATS_SERVERS
               valueFrom:
-                configMapKeyRef:
-                  name: service-config
-                  key: nats-urls
+                secretKeyRef:
+                  name: nats-credentials
+                  key: nats-servers
+            - name: NATS_REGION 
+              valueFrom:
+                secretKeyRef:
+                  name: nats-credentials
+                  key: region
           resources:
             limits:
-              memory: "256Mi"
-              cpu: "500m"
+              memory: "128Mi"
+              cpu: "250m"
             requests:
               memory: "128Mi"
               cpu: "250m"

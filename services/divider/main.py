@@ -19,6 +19,7 @@ class DividerService():
 
 async def main():
     
+    region = os.environ.get("REGION")
     server_urls = os.environ.get("NATS_SERVERS").split(",")
     if not server_urls:
         raise ValueError("NATS_SERVERS environment variable is not set or empty.")
@@ -42,10 +43,10 @@ async def main():
     nc = await nats.connect(servers=server_urls, user=nats_user, password=nats_password)
 
     # Create the DividerService
-    svc = await nats.micro.add_service(nc, name="DividerService", version="1.0.0")
+    svc = await nats.micro.add_service(nc, name=f"DividerService_{region}", version="1.0.0", description="Divide the second number from the first")
     adder = DividerService()
     group = svc.add_group(name="math")
-    await group.add_endpoint(name="divide", handler=adder.operate, subject="numbers.divide", metadata={"description": "Divide the second number from the first", "endpoint_schema": endpoint_schema, "response_schema": response_schema})
+    await group.add_endpoint(name="divide", handler=adder.operate, subject="numbers.divide", metadata={"endpoint_schema": endpoint_schema, "response_schema": response_schema})
 
     # Start the service
     await svc.start()

@@ -6,6 +6,7 @@ metadata:
     app: nats
 type: Opaque
 data:
-  username: c3lz  # Base64 encoded value of "natseast"
-  password: c3lzdXNlcg==  # Base64 encoded value of "NATSC!u5t3r3@st"
+  username: bmF0c3dlc3Q=  # Base64 encoded value of "natswest"
+  password: TkFUU0MhdTV0M3JXM3N0  # Base64 encoded value of "NATSC!u5t3rW3st"
   region: V2VzdA== # Base64 encoded value of "West"
+  nats-servers: bmF0czovL25hdHMtd2VzdC5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsOjQyMjI= # Base64 encoded value of "nats://nats-west.default.svc.cluster.local:4222"
