@@ -23,18 +23,18 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: nats-credentials
-                  key: username
+                  key: operator-username
             - name: NATS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: nats-credentials
-                  key: password
+                  key: operator-password
             - name: NATS_SERVERS
               valueFrom:
                 secretKeyRef:
                   name: nats-credentials
                   key: nats-servers
-            - name: NATS_REGION 
+            - name: REGION 
               valueFrom:
                 secretKeyRef:
                   name: nats-credentials

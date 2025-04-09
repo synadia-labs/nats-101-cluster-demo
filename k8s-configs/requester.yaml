@@ -24,12 +24,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: nats-credentials
-                  key: username
+                  key: requester-username
             - name: NATS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: nats-credentials
-                  key: password
+                  key: requester-password
             - name: LOOP_COUNT
               value: "10"
       restartPolicy: Never
