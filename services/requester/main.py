@@ -22,8 +22,8 @@ async def main():
     # Read the number of iterations from the environment variable
     loop_count = int(os.getenv("LOOP_COUNT", 10))
 
-    # Topics to send requests to
-    topics = ["math.numbers.add", "math.numbers.subtract", "math.numbers.multiply", "math.numbers.divide"]
+    # Subjects to send requests to
+    subjects = ["math.numbers.add", "math.numbers.subtract", "math.numbers.multiply", "math.numbers.divide"]
 
     for i in range(loop_count):
         # Generate two random numbers between 1 and 100
@@ -31,13 +31,13 @@ async def main():
         num2 = random.randint(1, 100)
         payload = {"first": num1, "second": num2}
 
-        for topic in topics:
+        for subject in subjects:
             try:
                 # Send a request and wait for a response
-                response = await nc.request(topic, json.dumps(payload).encode('utf-8'), timeout=2)
-                print(f"Request to {topic} with payload {payload} received response: {response.data.decode()}")
+                response = await nc.request(subject, json.dumps(payload).encode('utf-8'), timeout=2)
+                print(f"Request to {subject} with payload {payload} received response: {response.data.decode()}")
             except Exception as e:
-                print(f"Error sending request to {topic}: {e}")
+                print(f"Error sending request to {subject}: {e}")
 
     # Close the NATS connection
     await nc.close()
