@@ -44,9 +44,9 @@ async def main():
 
     # Create the DividerService
     svc = await nats.micro.add_service(nc, name=f"DividerService_{region}", version="1.0.0", description="Divide the second number from the first")
-    adder = DividerService()
+    divider = DividerService()
     group = svc.add_group(name="math")
-    await group.add_endpoint(name="divide", handler=adder.operate, subject="numbers.divide", metadata={"endpoint_schema": endpoint_schema, "response_schema": response_schema})
+    await group.add_endpoint(name="divide", handler=divider.operate, subject="numbers.divide", metadata={"endpoint_schema": endpoint_schema, "response_schema": response_schema})
 
     # Start the service
     await svc.start()
