@@ -1,4 +1,5 @@
 config:
+  # this tells the NATS server to use the K8s service for the client connection
   client_advertise: "nats://nats-east.default.svc.cluster.local:4222"
   cluster:
     enabled: true
@@ -10,36 +11,39 @@ config:
         size: 10Gi
   leafnodes:
     enabled: true
-  gateway:
+  gateway: 
     # NOTE: the gateway name must match the Helm release name
+    # so if you run `helm install nats-east ...` the gateway name must be `nats-east`
     name: "nats-east"
     enabled: true
-    merge:
-      advertise: "k8s-default-natseast-7a73a92769-7e2f030540a4d622.elb.us-east-1.amazonaws.com:7222"
-      authorization:
-        user: natsgate
-        password: NATSC!u5t3rGa73way
+    # merge:
+    #   advertise: "<your-load-balancer-endpoint>:7222"
+    #   authorization:
+    #     user: natsgate
+    #     password: NATSC!u5t3rGa73way
       # for this demo, I used the cloud provider's load balancer servicer.
       # that means I had to wait for the load balancer to be created before I knew
       # what the external IP address was. until then, the following two lines were
       # commented out. once the load balancer was created, I uncommented them
       # and updated the values entries with the correct endpoints.
-      gateways: 
-      - name: "nats-east"
-        urls:
-          - nats://natsgate:NATSC!u5t3rGa73way@k8s-default-natseast-7a73a92769-7e2f030540a4d622.elb.us-east-1.amazonaws.com:7222
-      - name: "nats-west"
-        urls:
-          - nats://natsgate:NATSC!u5t3rGa73way@57.154.178.93:7222
+      # gateways: 
+      # - name: "nats-east"
+      #   urls:
+      #     - nats://natsgate:NATSC!u5t3rGa73way@<your-load-balancer-endpoint>:7222
+      # - name: "nats-west"
+      #   urls:
+      #     - nats://natsgate:NATSC!u5t3rGa73way@<your-load-balancer-endpoint>:7222
   merge:
     accounts:
       SYS:
         users:
           - user: sys
             pass: sysuser
+      # primary account that was used to deploy the services in this demo
       teamA:
         jetstream: enabled
         users:
+          # the four math operator services used this user
           - user: nats_operators
             pass: NATS0per@tors
             permissions:
@@ -51,6 +55,7 @@ config:
                 - "math.numbers.>"
                 - "_INBOX.>" # necessary for responses
               allow_responses: true
+          # the requester job used this user
           - user: nats_requesters
             pass: NATSR3qu3st3rs
             permissions:
@@ -59,6 +64,7 @@ config:
               subscribe:
                 allow: 
                 - "_INBOX.>" # necessary for responses
+      # Another account, if we want to see how cross-account traffic is restricted
       teamB:
         users:
           - user: natsUserB
@@ -71,6 +77,7 @@ podTemplate:
       maxSkew: 1
       whenUnsatisfiable: DoNotSchedule
 
+# this block configures the K8s service to use the AWS load balancer
 service:
   ports:
     gateway:
