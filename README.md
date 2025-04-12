@@ -65,6 +65,16 @@ sh kubeconfig-setup/create-sa-token.sh
 
 That will create a kubeconfig file tied to a ServiceAccount that has cluster-admin priviliges. You can then load that into Lens as a new kubeconfig file.
 
+## Deploying the Services
+
+When configured against either context, you can deploy the services in bulk by running:
+
+```
+kubectl apply -f k8s-configs
+```
+
+This will run all four mathmatical services as Deployments with 3 instances, as well as the requester Job. Note that the requester Job will deploy and possibly run before the other services are ready, so you may need to run it again to see intended results.
+
 ## NATS Gateways and Cluster Connectivity
 
 In a production environment, you'd likely already have a domain name associated with your K8s cluster ingress that you can map to the service used by the NATS servers.
