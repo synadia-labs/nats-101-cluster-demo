@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: requester
-          image: ghcr.io/colinjlacy/colinjlacy/nats-cluster-demo-requester:latest
+          image: ghcr.io/synadia-labs/nats-cluster-demo-requester:latest
           imagePullPolicy: Always
           env:
             - name: NATS_SERVERS

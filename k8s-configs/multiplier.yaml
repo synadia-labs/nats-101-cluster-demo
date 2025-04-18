@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: multiplier
-          image: ghcr.io/colinjlacy/colinjlacy/nats-cluster-demo-multiplier:latest
+          image: ghcr.io/synadia-labs/nats-cluster-demo-multiplier:latest
           imagePullPolicy: Always
           env:
             - name: NATS_USER

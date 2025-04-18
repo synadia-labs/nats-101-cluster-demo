@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: divider
-          image: ghcr.io/colinjlacy/colinjlacy/nats-cluster-demo-divider:latest
+          image: ghcr.io/synadia-labs/nats-cluster-demo-divider:latest
           imagePullPolicy: Always
           env:
             - name: NATS_USER

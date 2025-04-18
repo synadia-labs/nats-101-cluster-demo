@@ -1,0 +1,14 @@
+# NATS Helm chart values for GKE
+cluster:
+  enabled: true
+  replicas: 1
+nats:
+  jetstream:
+    enabled: true
+    memStorage:
+      enabled: true
+      size: 256Mi
+    fileStorage:
+      enabled: true
+      size: 2Gi
+      storageClassName: standard

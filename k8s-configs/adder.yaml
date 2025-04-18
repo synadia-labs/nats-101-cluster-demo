@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: adder
-          image: ghcr.io/colinjlacy/colinjlacy/nats-cluster-demo-adder:latest
+          image: ghcr.io/synadia-labs/nats-cluster-demo-adder:latest
           imagePullPolicy: Always
           env:
             - name: NATS_USER
